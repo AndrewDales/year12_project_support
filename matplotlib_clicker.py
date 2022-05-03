@@ -1,4 +1,4 @@
-import numpy as np
+# import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 from mpl_point_clicker import clicker
@@ -13,7 +13,7 @@ def point_added_cb(position, clicker_class: str):
 
 # Creates a figure and axis in matplotlib
 fig, ax = plt.subplots(constrained_layout=True)
-# Reads the image file stored in the static subfolder
+# Reads the image file stored in the static sub-folder
 image = mpimg.imread('static/stinkbug.png')
 # Shows the image on the axis above
 ax.imshow(image)
@@ -33,5 +33,3 @@ my_clicker = clicker(
 
 # Attaches the callback function that will be activated when the image is clicked.
 my_clicker.on_point_added(point_added_cb)
-
-
