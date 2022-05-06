@@ -22,11 +22,11 @@ class Card:
     def __eq__(self, other):
         return self.suit == other.suit and self.rank == other.rank
 
-    def __gt__(self, other):
+    def __lt__(self, other):
         suit_list = list(self.suits)
         self_rank = (self.rank.index(self.rank), suit_list.index(self.suit))
         other_rank = (other.rank.index(other.rank), suit_list.index(self.suit))
-        return self_rank > other_rank
+        return self_rank < other_rank
 
 
 class CardSet:

@@ -1,4 +1,4 @@
-# import numpy as np
+import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 from mpl_point_clicker import clicker
@@ -10,6 +10,15 @@ def point_added_cb(position, clicker_class: str):
     x, y = position
     print(f"New point of class '{clicker_class}' added at {x=:.2f}, {y=:.2f}")
 
+
+# Trial plot
+points = np.arange(-5, 5, 0.01)
+dx, dy = np.meshgrid(points, points)
+z = (np.sin(dx)+np.sin(dy))
+plt.imshow(z)
+plt.colorbar()
+plt.title('plot for sin(x)+sin(y)')
+plt.show()
 
 # Creates a figure and axis in matplotlib
 fig, ax = plt.subplots(constrained_layout=True)
