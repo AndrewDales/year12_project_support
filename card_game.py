@@ -3,7 +3,20 @@ from random import shuffle
 
 class Card:
     suits = {"C": "Clubs", "D": "Diamonds", "H": "Hearts", "S": "Spades"}
-    ranks = ("2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A")
+    ranks = {"2": "Two",
+             "3": "Three",
+             "4": "Four",
+             "5": "Five",
+             "6": "Six",
+             "7": "Seven",
+             "8": "Eight",
+             "9": "Nine",
+             "10": "Ten",
+             "J": "Jack",
+             "Q": "Queen",
+             "K": "King",
+             "A": "Ace",
+             }
 
     def __init__(self, rank, suit):
 
@@ -16,17 +29,20 @@ class Card:
         else:
             raise TypeError("Invalid suit")
 
+    @property
+    def _rank_order(self):
+        suit_list = list(self.suits)
+        rank_list = list(self.ranks)
+        return suit_list.index(self.suit), rank_list.index(self.rank)
+
     def __repr__(self):
-        return f'Card <{self.rank} of {self.suits[self.suit]}>'
+        return f'Card <{self.rank[self.rank]} of {self.suits[self.suit]}>'
 
     def __eq__(self, other):
-        return self.suit == other.suit and self.rank == other.rank
+        return self._rank_order == other._rank_order
 
     def __lt__(self, other):
-        suit_list = list(self.suits)
-        self_rank = (self.rank.index(self.rank), suit_list.index(self.suit))
-        other_rank = (other.rank.index(other.rank), suit_list.index(self.suit))
-        return self_rank < other_rank
+        return self._rank_order < other._rank_order
 
 
 class CardSet:
