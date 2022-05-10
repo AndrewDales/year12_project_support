@@ -23,54 +23,52 @@ class Card:
         if rank in self.ranks:
             self.rank = rank
         else:
-            raise TypeError("Invalid rank")
+            raise ValueError("Invalid rank")
         if suit.upper() in self.suits.keys():
             self.suit = suit.upper()
         else:
-            raise TypeError("Invalid suit")
+            raise ValueError("Invalid suit")
 
     @property
-    def _rank_order(self):
+    def rank_order(self):
         suit_list = list(self.suits)
         rank_list = list(self.ranks)
-        return suit_list.index(self.suit), rank_list.index(self.rank)
+        return rank_list.index(self.rank), suit_list.index(self.suit)
 
     def __repr__(self):
-        return f'Card <{self.rank[self.rank]} of {self.suits[self.suit]}>'
+        return f'Card <{self.ranks[self.rank]} of {self.suits[self.suit]}>'
 
     def __eq__(self, other):
-        return self._rank_order == other._rank_order
+        return self.rank_order == other.rank_order
 
     def __lt__(self, other):
-        return self._rank_order < other._rank_order
+        return self.rank_order < other.rank_order
 
 
-class CardSet:
-    cards = []
+class CardList(list):
 
     def __init__(self, card_list=None):
-        if card_list:
-            self.cards = [card for card in card_list]
-        else:
-            self.cards = []
+        if card_list is None:
+            card_list = []
+        super().__init__(card_list)
 
     def add_card(self, card):
-        self.cards.append(card)
+        if isinstance(card, Card):
+            self.append(card)
+        else:
+            raise TypeError("Can only add cards")
 
     def play_card(self, card):
         try:
-            self.cards.remove(card)
+            self.remove(card)
         except ValueError:
             print("Card not in list")
             raise
         else:
             return card
 
-    def __repr__(self):
-        return repr(self.cards)
 
-
-class Deck(CardSet):
+class Deck(CardList):
 
     def __init__(self):
         super().__init__()
@@ -79,8 +77,15 @@ class Deck(CardSet):
                 self.add_card(Card(rank, suit))
 
     def shuffle(self):
-        shuffle(self.cards)
+        shuffle(self)
+
+    def play_top_card(self):
+        card = self.pop()
+        return card
 
     def deal(self, num_players, num_cards):
-        hands = [[self.play_card(card) for card in self.cards[:num_cards]] for _ in range(num_players)]
+        hands = [CardList() for _ in range(num_players)]
+        for c in range(num_cards):
+            for p in range(num_players):
+                hands[p].add_card(self.play_top_card())
         return hands
