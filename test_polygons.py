@@ -14,6 +14,8 @@ def test_triangle():
 
 def test_distance():
     assert Coord(0, 0).distance(Coord(3, 4)) == 5
+    assert Coord(4, 7).distance(Coord(2, 5)) == 8 ** 0.5
+    assert Coord(-3, 6).distance(Coord(2, -5)) == (25 + 121) ** 0.5
 
 
 def test_perimeter(test_square):
