@@ -1,3 +1,3 @@
-# year12_project_support
+# Highgate Computer Project Support
 
-Look here for example code for Y12 projects 2021 to 2023
+Look here for example code for Sixth Form Computer Projects
