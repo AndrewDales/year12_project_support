@@ -14,11 +14,27 @@ def point_added_cb(position, clicker_class: str):
 # Trial plot
 points = np.arange(-5, 5, 0.01)
 dx, dy = np.meshgrid(points, points)
-z = (np.sin(dx)+np.sin(dy))
-plt.imshow(z)
-plt.colorbar()
-plt.title('plot for sin(x)+sin(y)')
-plt.show()
+
+fig, ax = plt.subplots()
+ax.set_title('plot for sin(x)+sin(y)')
+
+for i in np.arange(0, 10, 0.5):
+    z = (np.sin(dx + i)+np.sin(dy + i))
+    ax.clear()
+    ax.imshow(z)
+    # plt.colorbar()
+    plt.pause(0.2)
+
+# Figure animation example
+# data = np.random.random((50, 50, 50))
+# fig, ax = plt.subplots()
+#
+# for i, img in enumerate(data):
+#     ax.clear()
+#     ax.imshow(img)
+#     ax.set_title(f"frame {i}")
+#     # Note that using time.sleep does *not* work here!
+#     plt.pause(0.1)
 
 # Creates a figure and axis in matplotlib
 fig, ax = plt.subplots(constrained_layout=True)
